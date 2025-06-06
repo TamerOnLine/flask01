@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Site{% endblock %}</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+        }
+        .navbar {
+            background-color: #333;
+            padding: 1em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar .links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1em;
+            font-weight: bold;
+        }
+        .navbar .links a:hover {
+            text-decoration: underline;
+        }
+        .navbar .lang-select {
+            margin-right: 1em;
+        }
+        .content {
+            padding: 2em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="links">
+            <a href="/">{{ _("Home") }}</a>
+            <a href="/about">{{ _("About") }}</a>
+            <a href="/contact">{{ _("Contact") }}</a>
+        </div>
+        <div class="lang-select">
+            <form action="/set_language" method="post">
+                <select name="lang" onchange="this.form.submit()">
+                    <option value="en" {% if get_locale() == 'en' %}selected{% endif %}>English</option>
+                    <option value="ar" {% if get_locale() == 'ar' %}selected{% endif %}>العربية</option>
+                    <option value="de" {% if get_locale() == 'de' %}selected{% endif %}>Deutsch</option>
+                </select>
+            </form>
+        </div>
+    </div>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>
